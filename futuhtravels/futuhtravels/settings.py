@@ -23,10 +23,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-bw$$x%bgb#y+l(b@$3x&9&rnalm4xk!@20!o@!%v%rfinnbc46'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# Initialize environment variables
+env = environ.Env()
+environ.Env.read_env()
 
-ALLOWED_HOSTS = ["*"]
+# SECURITY WARNING: don't run with debug turned on in production!
+
+DEBUG = env.bool('DEBUG', default=False)
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[])
+
 
 
 # Application definition
@@ -82,7 +87,7 @@ WSGI_APPLICATION = 'futuhtravels.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
+import os
 import environ
 
 # Initialize environment variables
